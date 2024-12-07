@@ -1,0 +1,12 @@
+.idea/
+.vscode/
+tmp/log/
+!tmp/log/.gitkeep
+vendor/
+node_modules/
+bun.lockb
+package-lock.json
+yarn.lock
+composer.lock
+.env
+public/dist/
