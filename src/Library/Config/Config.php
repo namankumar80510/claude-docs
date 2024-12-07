@@ -15,7 +15,7 @@ class Config
         self::$config = $config ?: require_once self::CONFIG_FILE;
     }
 
-    public static function get(string $key, mixed $default = null): mixed
+    public static function get(?string $key = null, mixed $default = null): mixed
     {
         if (empty($key)) {
             return self::$config;

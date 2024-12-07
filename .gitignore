@@ -1,7 +1,9 @@
 .idea/
 .vscode/
-tmp/log/
+tmp/log/*
 !tmp/log/.gitkeep
+tmp/data/*
+!tmp/data/.gitkeep
 vendor/
 node_modules/
 bun.lockb
@@ -10,3 +12,4 @@ yarn.lock
 composer.lock
 .env
 public/dist/
+.vite

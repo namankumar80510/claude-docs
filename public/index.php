@@ -36,6 +36,10 @@ $request = ServerRequestFactory::fromGlobals(
 
 // Set up dependency injection container
 $container = new Container;
+$services = require dirname(__DIR__) . '/config/services.php';
+foreach ($services as $name => $concrete) {
+    $container->add($name, $concrete);
+}
 $container->delegate(
     new ReflectionContainer(true)
 );

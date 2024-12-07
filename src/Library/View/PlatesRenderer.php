@@ -18,6 +18,7 @@ class PlatesRenderer implements ViewInterface
 
     public function render(string $template, array $data = [], string $layout = 'layouts/base'): string
     {
+        $data['config'] = config();
         $renderer = new Template($this->plates, $template);
         $renderer->data($data);
         $renderer->layout($layout, $data);

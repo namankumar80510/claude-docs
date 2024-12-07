@@ -11,7 +11,7 @@
  * @param mixed $default
  * @return mixed
  */
-function config(string $key, mixed $default = null): mixed
+function config(?string $key = null, mixed $default = null): mixed
 {
     return \App\Library\Config\Config::get($key, $default);
 }
