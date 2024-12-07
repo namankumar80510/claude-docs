@@ -6,13 +6,13 @@ namespace App\Library\Config;
 
 class Config
 {
-    public const CONFIG_FILE = __DIR__ . '/../../config/config.php';
+    public const CONFIG_FILE = __DIR__ . '/../../../config/config.php';
 
-    private static array $config;
+    private static array $config = [];
 
     public static function init(array $config = []): void
     {
-        self::$config = $config ?: require self::CONFIG_FILE;
+        self::$config = $config ?: require_once self::CONFIG_FILE;
     }
 
     public static function get(string $key, mixed $default = null): mixed

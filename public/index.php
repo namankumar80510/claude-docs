@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Library\Config\Config;
 use Dikki\DotEnv\DotEnv;
 use Tracy\Debugger;
 use Laminas\Diactoros\ServerRequestFactory;
@@ -15,6 +16,9 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Load environment variables
 (new DotEnv(dirname(__DIR__)))->load();
+
+// Initialize configuration
+Config::init();
 
 // Configure debugger based on environment
 $logDir = dirname(__DIR__) . '/tmp/log';

@@ -14,6 +14,7 @@
         "league/plates": "^3.6",
         "league/route": "^6.2",
         "rakibtg/sleekdb": "^2.15",
+        "symfony/var-dumper": "^7.2",
         "tracy/tracy": "^2.10"
     },
     "autoload": {
