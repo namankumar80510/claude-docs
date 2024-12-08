@@ -48,6 +48,8 @@
     <?php endif; ?>
 </div>
 
+<?php $this->push('title')?>Search Results for <?= htmlspecialchars($query) ?><?php $this->end()?>
+
 <?php $this->push('scripts'); ?>
 <script>
     function askAI() {
