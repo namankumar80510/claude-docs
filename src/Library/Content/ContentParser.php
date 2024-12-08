@@ -24,6 +24,9 @@ class ContentParser
         $contents = [];
         foreach ($mdFiles as $mdFile) {
             $content = $this->parser->getFileContent(str_replace('.md', '', $mdFile->getRelativePathname()));
+            if (!$content) {
+                continue;
+            }
             $content['slug'] = str_replace('.md', '', $mdFile->getRelativePathname());
             $contents[] = $content;
         }
@@ -33,6 +36,9 @@ class ContentParser
     public function getArticle(string $slug): ?array
     {
         $content = $this->parser->getFileContent($slug);
+        if (!$content) {
+            return null;
+        }
         $content['slug'] = $slug;
         $content['content'] = $this->modifyContentString($content['content']);
         $content['toc'] = $this->getToc($content['content']);

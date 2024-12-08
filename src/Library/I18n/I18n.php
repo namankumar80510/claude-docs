@@ -64,38 +64,28 @@ class I18n
     private static function loadTranslations(): void
     {
         $locale = self::$locale;
-        $path = self::$langPath . "/{$locale}";
+        $path = self::$langPath . "/{$locale}.php";
 
-        if (!is_dir($path)) {
+        if (!file_exists($path)) {
             return;
         }
 
-        self::$translations[$locale] = [];
-
-        foreach (glob("{$path}/*.php") as $file) {
-            $name = basename($file, '.php');
-            self::$translations[$locale][$name] = require $file;
-        }
+        self::$translations[$locale] = require $path;
     }
 
     private static function getTranslation(string $key, string $locale): ?string
     {
-        $parts = explode('.', $key);
-
         if (!isset(self::$translations[$locale])) {
             return null;
         }
 
         $translations = self::$translations[$locale];
 
-        foreach ($parts as $part) {
-            if (!is_array($translations) || !array_key_exists($part, $translations)) {
-                return null;
-            }
-            $translations = $translations[$part];
+        if (!array_key_exists($key, $translations)) {
+            return null;
         }
 
-        return is_string($translations) ? $translations : null;
+        return is_string($translations[$key]) ? $translations[$key] : null;
     }
 
     private static function replaceParameters(string $translation, array $replace): string
