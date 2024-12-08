@@ -7,14 +7,14 @@ namespace App\Library\I18n;
 class I18n
 {
     private static array $translations = [];
-    private static string $locale;
+    private static string $locale = '';
     private static string $fallbackLocale = 'en';
     private static string $langPath;
 
-    public static function init(string $langPath = null): void
+    public static function init(string $locale, string $langPath = null): void
     {
         self::$langPath = $langPath ?? dirname(__DIR__, 3) . '/resources/lang';
-        self::$locale = config('i18n.default_locale', 'en');
+        self::$locale = $locale ?? self::$fallbackLocale;
         self::loadTranslations();
     }
 

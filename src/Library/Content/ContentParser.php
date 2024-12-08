@@ -14,12 +14,12 @@ class ContentParser
 
     public function __construct()
     {
-        $this->parser = new MarkdownParser(self::DOCS_DIR);
+        $this->parser = new MarkdownParser($this->getContentDir());
     }
 
     public function getContent(string $relativePath): ?array
     {
-        $mdFiles = Finder::findFiles('*.md')->from(self::DOCS_DIR);
+        $mdFiles = Finder::findFiles('*.md')->from($this->getContentDir());
         foreach ($mdFiles as $mdFile) {
             $content = $this->parser->getFileContent(str_replace('.md', '', $mdFile->getRelativePathname()));
             $content['slug'] = str_replace('.md', '', $mdFile->getRelativePathname());
@@ -27,4 +27,9 @@ class ContentParser
             die;
         }
     }
-}   
+
+    private function getContentDir(): string
+    {
+        return rtrim(self::DOCS_DIR, '/') . '/' . locale() . '/content/';
+    }
+}
