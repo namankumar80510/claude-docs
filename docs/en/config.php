@@ -6,7 +6,17 @@ return [
     ],
 
     'sidebar' => [
-        // TODO: add sidebar items
-        'sample' => 'Sample',
+        // single item without any sub-items
+        'introduction' => 'Introduction',
+        // nested items
+        [
+            'title' => 'Getting Started',
+            'items' => [
+                'overview' => 'Overview',
+                'installation' => 'Installation',
+                'quick-start' => 'Quick Start',
+                'configuration' => 'Configuration',
+            ]
+        ],
     ],
 ];
