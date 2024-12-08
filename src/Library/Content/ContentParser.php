@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Library\Content;
 
-use Dikki\Markdown\MarkdownParser;
+use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
+use SplFileInfo;
 
 class ContentParser
 {
@@ -15,7 +16,7 @@ class ContentParser
 
     public function __construct()
     {
-        $this->parser = new MarkdownParser($this->getContentDir());
+        $this->parser = new MarkdownParser();
     }
 
     public function getArticles(): array
@@ -23,7 +24,7 @@ class ContentParser
         $mdFiles = Finder::findFiles('*.md')->from($this->getContentDir());
         $contents = [];
         foreach ($mdFiles as $mdFile) {
-            $content = $this->parser->getFileContent(str_replace('.md', '', $mdFile->getRelativePathname()));
+            $content = $this->getParsedFileContent($mdFile);
             if (!$content) {
                 continue;
             }
@@ -35,7 +36,7 @@ class ContentParser
 
     public function getArticle(string $slug): ?array
     {
-        $content = $this->parser->getFileContent($slug);
+        $content = $this->getParsedFileContent($slug);
         if (!$content) {
             return null;
         }
@@ -43,6 +44,20 @@ class ContentParser
         $content['content'] = $this->modifyContentString($content['content']);
         $content['toc'] = $this->getToc($content['content']);
         return $content;
+    }
+
+    private function getParsedFileContent(SplFileInfo|string $slug): ?array
+    {
+        if (!is_string($slug)) {
+            $filePath = $slug->getPath();
+        } else {
+            $filePath = $this->getContentDir() . '/' . $slug . '.md';
+        }
+        if (!file_exists($filePath)) {
+            return null;
+        }
+        $mdFileContent = FileSystem::read($filePath);
+        return $this->parser->parse($mdFileContent);
     }
 
     private function getContentDir(): string
