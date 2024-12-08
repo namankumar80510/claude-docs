@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Library\Content;
 
 use Dikki\Markdown\MarkdownParser;
+use Nette\Utils\Finder;
 
 class ContentParser
 {
@@ -18,6 +19,12 @@ class ContentParser
 
     public function getContent(string $relativePath): ?array
     {
-        return $this->parser->getFileContent($relativePath);
+        $mdFiles = Finder::findFiles('*.md')->from(self::DOCS_DIR);
+        foreach ($mdFiles as $mdFile) {
+            $content = $this->parser->getFileContent(str_replace('.md', '', $mdFile->getRelativePathname()));
+            $content['slug'] = str_replace('.md', '', $mdFile->getRelativePathname());
+            dump($content);
+            die;
+        }
     }
-}
+}   

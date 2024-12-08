@@ -5,3 +5,8 @@
 - Deployed to a VPS on every push to the `main` branch.
 
 **It is a work in progress.**
+
+## Purpose(s)
+
+- Act as an example of how to use the Claude PHP SDK in a real-world application.
+- Provide a simple and easy to understand documentation for the SDK.
