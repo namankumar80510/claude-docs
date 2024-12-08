@@ -22,7 +22,7 @@ class LocaleMiddleware implements MiddlewareInterface
         $locale = $request->getAttribute('locale');
 
         // if the locale is not supported, redirect to the default locale
-        if (!in_array($locale, config('i18n.supported_locales'))) {
+        if (!in_array($locale, array_keys(config('i18n.supported_locales')))) {
             return new RedirectResponse('/' . config('i18n.default_locale') . '/index');
         }
 

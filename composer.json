@@ -13,6 +13,7 @@
         "league/container": "^4.2",
         "league/plates": "^3.6",
         "league/route": "^6.2",
+        "nette/utils": "^4.0",
         "rakibtg/sleekdb": "^2.15",
         "symfony/var-dumper": "^7.2",
         "tempest/highlight": "^2.11",

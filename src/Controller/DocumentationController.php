@@ -22,7 +22,7 @@ class DocumentationController
     {
         $slug = $request->getAttribute('slug');
 
-        $content = $this->contentParser->getContent($slug);
+        $content = $this->contentParser->getArticle($slug);
 
         if (!$content) {
             return new HtmlResponse('Not found', 404);
