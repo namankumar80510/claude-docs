@@ -18,6 +18,11 @@ class DocumentationController
         private ContentParser $contentParser
     ) {}
 
+    public function getHome(ServerRequestInterface $request): ResponseInterface
+    {
+        return new HtmlResponse($this->view->render('docs/home'));
+    }
+
     public function getDoc(ServerRequestInterface $request): ResponseInterface
     {
         $slug = $request->getAttribute('slug');

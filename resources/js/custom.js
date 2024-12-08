@@ -1,12 +1,3 @@
-// Initialize Algolia DocSearch
-docsearch({
-    appId: 'YOUR_APP_ID',
-    apiKey: 'YOUR_SEARCH_API_KEY',
-    indexName: 'claude-sdk',
-    container: '#docsearch',
-    debug: false
-});
-
 // Mobile sidebar toggle
 document.addEventListener('DOMContentLoaded', () => {
     const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -18,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close sidebar when clicking outside on mobile
     document.addEventListener('click', (e) => {
-        if (window.innerWidth < 1024 && 
-            !sidebar.contains(e.target) && 
-            !sidebarToggle.contains(e.target) && 
+        if (window.innerWidth < 1024 &&
+            !sidebar.contains(e.target) &&
+            !sidebarToggle.contains(e.target) &&
             !sidebar.classList.contains('-translate-x-full')) {
             sidebar.classList.add('-translate-x-full');
         }
@@ -33,3 +24,17 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 } else {
     document.documentElement.classList.remove('dark');
 }
+
+// Mobile search
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const searchModal = document.getElementById('search-modal');
+    const closeSearchModal = document.getElementById('close-search-modal');
+    mobileSearchButton.addEventListener('click', () => {
+        searchModal.classList.toggle('hidden');
+    });
+
+    closeSearchModal.addEventListener('click', () => {
+        searchModal.classList.add('hidden');
+    });
+});

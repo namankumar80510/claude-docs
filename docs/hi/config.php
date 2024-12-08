@@ -7,6 +7,6 @@ return [
 
     'sidebar' => [
         // TODO: add sidebar items
-        'sample' => 'सैम्पल',
+        'introduction' => 'आवधान',
     ],
 ];

@@ -45,6 +45,8 @@
     </div>
 </div>
 
+<?php $this->push('title')?><?= $title . ' - ' . $config['app']['name'] ?><?php $this->end()?>
+
 <?php $this->push('scripts') ?>
 <script>
     document.getElementById('mobile-toc-button').addEventListener('click', function() {

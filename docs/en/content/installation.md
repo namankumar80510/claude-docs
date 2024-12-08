@@ -1,7 +1,7 @@
 ---
 title: Installation
 previous: overview
-next: quick-start
+next: quickstart
 ---
 
 ## Requirements

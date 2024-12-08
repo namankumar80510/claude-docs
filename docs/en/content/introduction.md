@@ -1,6 +1,7 @@
 ---
 title: Claude PHP SDK Documentation
 next: overview
+previous: home
 ---
 
 Claude PHP SDK is a useful PHP library that you can use to communicate with Anthropic's Claude via API.
