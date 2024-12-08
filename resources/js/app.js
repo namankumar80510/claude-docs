@@ -1,5 +1,7 @@
-// Import our custom CSS
+// Import our CSS
 import '../css/app.css'
+import '../css/prism.css'
 
-// custom js for the app
+// Import our JS
 import './custom.js'
+import '../js/prism.js'

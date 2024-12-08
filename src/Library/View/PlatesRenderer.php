@@ -16,12 +16,15 @@ class PlatesRenderer implements ViewInterface
         $this->plates = new Engine(dirname(__DIR__, 3) . '/templates', 'phtml');
     }
 
-    public function render(string $template, array $data = [], string $layout = 'layouts/base'): string
+    public function render(string $template, array $data = [], ?string $layout = 'layouts/base'): string
     {
         $data['config'] = config();
+        $data['locale'] = locale();
         $renderer = new Template($this->plates, $template);
         $renderer->data($data);
-        $renderer->layout($layout, $data);
+        if ($layout) {
+            $renderer->layout($layout, $data);
+        }
         return $renderer->render($data);
     }
 }

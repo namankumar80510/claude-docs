@@ -1,0 +1,22 @@
+<?php
+
+return [
+    'app' => [
+        'name' => 'Claude PHP SDK',
+    ],
+
+    'sidebar' => [
+        // single item without any sub-items
+        'index' => 'Introduction',
+        // nested items
+        [
+            'title' => 'Getting Started',
+            'items' => [
+                'overview' => 'Overview',
+                'installation' => 'Installation',
+                'quick-start' => 'Quick Start',
+                'configuration' => 'Configuration',
+            ]
+        ],
+    ],
+];

@@ -1,7 +1,64 @@
-<div class="mb-8">
-    <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $title ?></h1>
+<div class="flex gap-8">
+    <div class="flex-1 min-w-0">
+        <div class="mb-4">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $title ?></h1>
+        </div>
+
+        <!-- edit this page -->
+        <div class="mb-4">
+            <a target="_blank" href="<?= $config['app']['docs_github'] ?>/edit/dev/docs/<?= $locale ?>/content/<?= $slug ?>.md" class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+                </svg>
+                <?= __('docs.editOnGitHub') ?>
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <?= $this->insert('partials/docs_navigation', ['previous' => $previous ?? null, 'next' => $next ?? null]) ?>
+
+        <div class="markdown-content prose dark:prose-invert max-w-none prose-base prose-indigo [&_pre]:overflow-x-auto [&_code]:whitespace-pre [&_pre]:max-w-full">
+            <?= $content ?>
+        </div>
+
+        <!-- Navigation -->
+        <?= $this->insert('partials/docs_navigation', ['previous' => $previous ?? null, 'next' => $next ?? null]) ?>
+    </div>
+
+    <div class="w-64 shrink-0 hidden lg:block">
+        <div class="fixed">
+            <?= $this->insert('partials/toc', ['toc' => $toc]) ?>
+        </div>
+    </div>
+
+    <!-- Mobile TOC -->
+    <div class="fixed bottom-4 right-4 lg:hidden">
+        <button id="mobile-toc-button" class="bg-gray-900 dark:bg-gray-800 text-white p-3 rounded-full shadow-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <div id="mobile-toc" class="hidden absolute bottom-16 right-0 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 mb-2">
+            <?= $this->insert('partials/toc', ['toc' => $toc]) ?>
+        </div>
+    </div>
 </div>
 
-<div class="markdown-content prose dark:prose-invert max-w-none prose-lg prose-slate">
-    <?= $content ?>
-</div>
+<?php $this->push('scripts') ?>
+<script>
+    document.getElementById('mobile-toc-button').addEventListener('click', function() {
+        const toc = document.getElementById('mobile-toc');
+        toc.classList.toggle('hidden');
+    });
+
+    // Close TOC when clicking outside
+    document.addEventListener('click', function(e) {
+        const toc = document.getElementById('mobile-toc');
+        const button = document.getElementById('mobile-toc-button');
+        if (!toc.contains(e.target) && !button.contains(e.target)) {
+            toc.classList.add('hidden');
+        }
+    });
+</script>
+<?php $this->end() ?>
