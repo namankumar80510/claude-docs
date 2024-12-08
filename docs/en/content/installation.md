@@ -4,6 +4,11 @@ previous: overview
 next: quick-start
 ---
 
+## Requirements
+
+- PHP 8.2 or higher
+- Composer
+
 ## Via Composer
 
 This is the recommended way to install the library.
