@@ -7,7 +7,7 @@ return [
 
     'sidebar' => [
         // single item without any sub-items
-        'introduction' => 'Introduction',
+        'index' => 'Introduction',
         // nested items
         [
             'title' => 'Getting Started',
