@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Library\Content;
 
+use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
@@ -51,5 +52,10 @@ class MarkdownParser
         $parsedArray['content'] = $result->getContent();
 
         return $parsedArray;
+    }
+
+    public function parseString(string $markdown): string
+    {
+        return (new CommonMarkConverter())->convert($markdown)->getContent();
     }
 }

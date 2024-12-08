@@ -3,7 +3,7 @@
         <ul class="space-y-2 font-medium">
             <?php foreach ($config['sidebar'] as $key => $value): ?>
                 <?php if (is_array($value)): ?>
-                    <details class="group">
+                    <details class="group" open>
                         <summary class="flex items-center p-2 text-indigo-600 rounded-lg dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 cursor-pointer">
                             <svg class="w-4 h-4 mr-1 transition-transform group-open:rotate-90" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

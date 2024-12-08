@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Library\Config\Config;
 use App\Library\Router\RoutingStrategy;
 use App\Middleware\ConfigMiddleware;
 use App\Middleware\LocaleMiddleware;

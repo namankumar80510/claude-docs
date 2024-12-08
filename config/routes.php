@@ -2,6 +2,8 @@
 
 use App\Controller\DocumentationController;
 use App\Controller\SearchController;
+use App\Middleware\APIAuthMiddleware;
+use App\Middleware\CORSMiddleware;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -19,6 +21,13 @@ $router->get('/{locale}', function (ServerRequestInterface $request) {
     return new RedirectResponse("/{$locale}/home");
 });
 
-$router->get('/{locale}/search', [SearchController::class, 'getSearchResults'])->setName('search');
-$router->get('/{locale}/home', [DocumentationController::class, 'getHome'])->setName('home');
-$router->get('/{locale}/{slug}', [DocumentationController::class, 'getDoc'])->setName('docs.show');
+$router->group('/{locale}', function ($router) {
+    $router->get('/search', [SearchController::class, 'getSearchResults'])->setName('search');
+    $router->get('/home', [DocumentationController::class, 'getHome'])->setName('home');
+    $router->get('/{slug}', [DocumentationController::class, 'getDoc'])->setName('docs.show');
+});
+
+// API ROUTES
+$router->group('/api/v1', function ($router) {
+    $router->post('/ask-ai', [SearchController::class, 'getAIResponse'])->setName('api.ask-ai');
+})->middleware(new CORSMiddleware())->middleware(new APIAuthMiddleware());

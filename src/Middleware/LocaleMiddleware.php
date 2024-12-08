@@ -18,14 +18,28 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class LocaleMiddleware implements MiddlewareInterface
 {
+
+    public const SKIP_ROUTES = ['/api/*'];
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $path = $request->getUri()->getPath();
+
+        /**
+         * May have to improve this logic; it seems to be working for now.
+         */
+        foreach (self::SKIP_ROUTES as $route) {
+            if (str_starts_with($path, rtrim($route, '*'))) {
+                return $handler->handle($request);
+            }
+        }
+
         $locale = $request->getAttribute('locale');
         $localeConfig = (require_once dirname(__DIR__, 2) . "/config/config.php")['i18n'] ?? [];
 
         // if the locale is not supported, redirect to the default locale
         if (!in_array($locale, array_keys($localeConfig['supported_locales']))) {
-            return new RedirectResponse('/' . $localeConfig['default_locale'] . '/index');
+            return new RedirectResponse('/' . $localeConfig['default_locale'] . '/home');
         }
 
         // set the locale for the application
