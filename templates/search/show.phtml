@@ -1,0 +1,40 @@
+<div class="">
+    <form action="/<?= $locale ?>/search" method="GET" class="mb-8">
+        <div class="relative">
+            <input type="text" 
+                   name="q" 
+                   value="<?= htmlspecialchars($query ?? '') ?>" 
+                   placeholder="Search documentation..." 
+                   class="w-full px-4 py-2 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            >
+            <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <?php if (isset($results)): ?>
+        <?php if (empty($results)): ?>
+            <div class="text-center text-gray-600 dark:text-gray-400">
+                No results found for "<?= htmlspecialchars($query) ?>"
+            </div>
+        <?php else: ?>
+            <div class="space-y-6">
+                <?php foreach ($results as $result): ?>
+                    <div class="p-6 bg-white rounded-lg shadow dark:bg-gray-800">
+                        <h2 class="text-xl font-bold mb-2">
+                            <a href="/<?= $locale ?>/<?= $result['slug'] ?>" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300">
+                                <?= htmlspecialchars($result['title']) ?>
+                            </a>
+                        </h2>
+                        <?php if (isset($result['content'])): ?>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                <?= htmlspecialchars(strip_tags(substr($result['content'], 0, 200))) ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>

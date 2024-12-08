@@ -7,14 +7,14 @@ return [
 
     'sidebar' => [
         // single item without any sub-items
-        'index' => 'Introduction',
+        'introduction' => 'Introduction',
         // nested items
         [
             'title' => 'Getting Started',
             'items' => [
                 'overview' => 'Overview',
                 'installation' => 'Installation',
-                'quick-start' => 'Quick Start',
+                'quickstart' => 'Quick Start',
                 'configuration' => 'Configuration',
             ]
         ],

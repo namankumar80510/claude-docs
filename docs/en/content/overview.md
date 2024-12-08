@@ -1,6 +1,6 @@
 ---
 title: Overview
-previous: index
+previous: home
 next: installation
 ---
 

@@ -7,15 +7,49 @@
                         <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <a href="/<?= locale() ?>/index" class="flex ml-2 md:mr-24">
+                <a href="/<?= locale() ?>/home" class="flex ml-2 md:mr-24">
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                         <?= $config['app']['name'] ?>
                     </span>
                 </a>
             </div>
             <div class="flex items-center">
-                <div id="docsearch" class="mr-4"></div>
-                <select class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="window.location.href = '/' + this.value + '/index'">
+                <!-- Desktop search -->
+                <form action="/<?= locale() ?>/search" method="GET" class="hidden lg:block mr-4">
+                    <input type="text" 
+                           name="q" 
+                           placeholder="Search documentation..." 
+                           class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    >
+                </form>
+                
+                <!-- Mobile search icon -->
+                <button id="mobile-search-button" class="lg:hidden p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white mr-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+
+                <!-- Mobile search modal -->
+                <div id="search-modal" class="fixed inset-0 z-50 hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                    <div class="absolute inset-x-0 top-20 mx-4 bg-white dark:bg-gray-800 rounded-lg p-4">
+                        <form action="/<?= locale() ?>/search" method="GET" class="relative">
+                            <input type="text" 
+                                   name="q" 
+                                   placeholder="Search documentation..." 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                            >
+                            <button type="button" id="close-search-modal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <select class="mr-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="window.location.href = '/' + this.value + '/home'">
                     <?php foreach ($config['i18n']['supported_locales'] as $localeKey => $text): ?>
                         <option value="<?= $localeKey ?>" <?= $localeKey === locale() ? 'selected' : '' ?>>
                             <?= $text ?>

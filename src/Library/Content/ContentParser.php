@@ -19,9 +19,9 @@ class ContentParser
         $this->parser = new MarkdownParser();
     }
 
-    public function getArticles(): array
+    public function getArticles(string $locale = null): array
     {
-        $mdFiles = Finder::findFiles('*.md')->from($this->getContentDir());
+        $mdFiles = Finder::findFiles('*.md')->in($this->getContentDir($locale));
         $contents = [];
         foreach ($mdFiles as $mdFile) {
             $content = $this->getParsedFileContent($mdFile);
@@ -49,7 +49,7 @@ class ContentParser
     private function getParsedFileContent(SplFileInfo|string $slug): ?array
     {
         if (!is_string($slug)) {
-            $filePath = $slug->getPath();
+            $filePath = $slug->getPathname();
         } else {
             $filePath = $this->getContentDir() . '/' . $slug . '.md';
         }
@@ -60,9 +60,12 @@ class ContentParser
         return $this->parser->parse($mdFileContent);
     }
 
-    private function getContentDir(): string
+    private function getContentDir(string $locale = null): string
     {
-        return rtrim(self::DOCS_DIR, '/') . '/' . locale() . '/content/';
+        if (!$locale) {
+            $locale = locale();
+        }
+        return rtrim(self::DOCS_DIR, '/') . '/' . $locale . '/content/';
     }
 
     private function modifyContentString(string $content): string

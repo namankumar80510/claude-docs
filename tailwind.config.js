@@ -2,9 +2,8 @@
 module.exports = {
   content: [
     './resources/**/*.{html,js,php,phtml,twig}',
-    './templates/**/**/*.{html,js,php,phtml,twig}',
-    './templates/**/*.{html,js,php,phtml,twig}',
-    './templates/*.{html,js,php,phtml,twig}',
+    './templates/**/*.phtml',
+    './templates/*.phtml',
   ],
   theme: {
     extend: {
