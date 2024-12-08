@@ -2,10 +2,11 @@
 
 return [
     'app' => [
-        'name' => 'Claude PHP SDK',
+        'name' => 'क्लॉड PHP SDK',
     ],
 
     'sidebar' => [
         // TODO: add sidebar items
+        'sample' => 'सैम्पल',
     ],
 ];

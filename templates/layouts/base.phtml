@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="<?= $locale ?>" class="h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -20,6 +20,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
     <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <?= $this->section('styles') ?>
 </head>
 
 <body class="h-full bg-white dark:bg-gray-900">
@@ -40,6 +41,8 @@
 
     <!-- Footer -->
     <?= $this->insert('partials/footer', ['config' => $config]) ?>
+
+    <?= $this->section('scripts') ?>
 </body>
 
 </html>

@@ -13,11 +13,11 @@ class Config
     private static array $localeConfig = [];
     private static string $currentLocale = 'en';
 
-    public static function init(array $config = [], string $locale = 'en'): void
+    public static function init(string $locale = 'en', array $config = []): void
     {
         self::$currentLocale = $locale;
-        self::$config = $config ?: require_once self::CONFIG_FILE;
-        
+        self::$config = $config ?: require self::CONFIG_FILE;
+
         $localeConfigPath = self::DOCS_DIR . "/{$locale}/config.php";
         if (file_exists($localeConfigPath)) {
             self::$localeConfig = require $localeConfigPath;
@@ -31,7 +31,7 @@ class Config
         }
 
         $keys = explode('.', $key);
-        
+
         // First check in locale config
         $localeValue = self::getFromArray(self::$localeConfig, $keys);
         if ($localeValue !== null) {
@@ -46,7 +46,7 @@ class Config
     public static function has(string $key): bool
     {
         $keys = explode('.', $key);
-        
+
         // Check in locale config first
         if (self::getFromArray(self::$localeConfig, $keys) !== null) {
             return true;
@@ -74,7 +74,7 @@ class Config
     {
         self::$currentLocale = $locale;
         $localeConfigPath = self::DOCS_DIR . "/{$locale}/config.php";
-        
+
         if (file_exists($localeConfigPath)) {
             self::$localeConfig = require $localeConfigPath;
         } else {

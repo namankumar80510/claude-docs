@@ -7,5 +7,6 @@ return [
 
     'sidebar' => [
         // TODO: add sidebar items
+        'sample' => 'Sample',
     ],
 ];
